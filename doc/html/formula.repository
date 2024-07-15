@@ -1,0 +1,10 @@
+\_form#0=15x28:\[ \frac{f_s}{M} \]
+\_form#1=10x13:$f_s$
+\_form#2=38x18:$ \frac{slot_{time}}{14} $
+\_form#3=18x16:$\frac{1}{14k}$
+\_form#4=18x16:$\frac{1}{28k}$
+\_form#5=13x18:$ \frac{f_s}{M} $
+\_form#6=10x13:$ f_s $
+\_form#7=14x10:$ M $
+\_form#8=171x30:\[w[n] = 0.54 - 0.46 \cos(\frac{2\pi n}{(w-1))}\]
+\_form#9=205x40:\[x[m,n] = \sum_{k=0}^{m+(N-1)} x[n]w[k]e^{-j2\pi km/N}\]

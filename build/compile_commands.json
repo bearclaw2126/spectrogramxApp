@@ -1,0 +1,14 @@
+[
+{
+  "directory": "/home/migue/Desktop/programs/spectrogram/build",
+  "command": "/usr/bin/c++ -I/home/migue/Desktop/programs/spectrogram/source/headers -isystem /usr/include/hdf5/serial -lfftw3_threads -lfftw3 -lm -g -o CMakeFiles/spectrogram.dir/source/src/focus.cpp.o -c /home/migue/Desktop/programs/spectrogram/source/src/focus.cpp",
+  "file": "/home/migue/Desktop/programs/spectrogram/source/src/focus.cpp",
+  "output": "CMakeFiles/spectrogram.dir/source/src/focus.cpp.o"
+},
+{
+  "directory": "/home/migue/Desktop/programs/spectrogram/build",
+  "command": "/usr/bin/c++ -I/home/migue/Desktop/programs/spectrogram/source/headers -isystem /usr/include/hdf5/serial -lfftw3_threads -lfftw3 -lm -g -o CMakeFiles/spectrogram.dir/source/src/functions.cpp.o -c /home/migue/Desktop/programs/spectrogram/source/src/functions.cpp",
+  "file": "/home/migue/Desktop/programs/spectrogram/source/src/functions.cpp",
+  "output": "CMakeFiles/spectrogram.dir/source/src/functions.cpp.o"
+}
+]

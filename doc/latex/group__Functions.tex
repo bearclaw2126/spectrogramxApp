@@ -1,0 +1,53 @@
+\hypertarget{group__Functions}{}\doxysection{Functions}
+\label{group__Functions}\index{Functions@{Functions}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group__Functions_gad59cf229918a18f24fe83505288399be}{hamming}} (int lo, std\+::vector$<$ double $>$ \&c)
+\begin{DoxyCompactList}\small\item\em Creates the hamming window for the STFT. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structstft}{stft}} \mbox{\hyperlink{group__Functions_gaf04cf39964eb67b4750c15900ec48684}{stft\+Calc}} (std\+::vector$<$ double $>$ \&c, std\+::vector$<$ std\+::complex$<$ double $>$$>$ \&iq)
+\begin{DoxyCompactList}\small\item\em This function calculates the Short Time Fourier Transform (STFT) of the input signal. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{group__Functions_Functions}{}\doxysubsection{Definitions}\label{group__Functions_Functions}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group__Functions_gad59cf229918a18f24fe83505288399be}\label{group__Functions_gad59cf229918a18f24fe83505288399be}} 
+\index{Functions@{Functions}!hamming@{hamming}}
+\index{hamming@{hamming}!Functions@{Functions}}
+\doxysubsubsection{\texorpdfstring{hamming()}{hamming()}}
+{\footnotesize\ttfamily void hamming (\begin{DoxyParamCaption}\item[{int}]{lo,  }\item[{std\+::vector$<$ double $>$ \&}]{c }\end{DoxyParamCaption})}
+
+
+
+Creates the hamming window for the STFT. 
+
+The hamming window utlizes the hamming function and applies it over a set length the function applies is thus \+: \[w[n] = 0.54 - 0.46 \cos(\frac{2\pi n}{(w-1))}\] 
+\begin{DoxyParams}{Parameters}
+{\em w} & window size \\
+\hline
+{\em window} & reference to the window vector \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{group__Functions_gaf04cf39964eb67b4750c15900ec48684}\label{group__Functions_gaf04cf39964eb67b4750c15900ec48684}} 
+\index{Functions@{Functions}!stftCalc@{stftCalc}}
+\index{stftCalc@{stftCalc}!Functions@{Functions}}
+\doxysubsubsection{\texorpdfstring{stftCalc()}{stftCalc()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstft}{stft}} stft\+Calc (\begin{DoxyParamCaption}\item[{std\+::vector$<$ double $>$ \&}]{c,  }\item[{std\+::vector$<$ std\+::complex$<$ double $>$$>$ \&}]{iq }\end{DoxyParamCaption})}
+
+
+
+This function calculates the Short Time Fourier Transform (STFT) of the input signal. 
+
+The function calculates the STFT of the input signal using the Fast Fourier Transform (FFT) algorithm. The function uses the FFTW library to perform the FFT calculations. Based off the formula for the stft which is \[x[m,n] = \sum_{k=0}^{m+(N-1)} x[n]w[k]e^{-j2\pi km/N}\] 
+\begin{DoxyParams}{Parameters}
+{\em window} & The window vector used for the STFT \\
+\hline
+{\em iq} & The input signal in the time domain \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The STFT structure containing the STFT values 
+\end{DoxyReturn}

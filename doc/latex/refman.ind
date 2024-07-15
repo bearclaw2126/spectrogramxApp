@@ -1,0 +1,19 @@
+\begin{theindex}
+
+  \item {Functions}, \hyperpage{9}
+    \subitem {hamming}, \hyperpage{9}
+    \subitem {stftCalc}, \hyperpage{10}
+
+  \indexspace
+
+  \item {hamming}
+    \subitem {Functions}, \hyperpage{9}
+
+  \indexspace
+
+  \item {sig}, \hyperpage{11}
+  \item {stft}, \hyperpage{11}
+  \item {stftCalc}
+    \subitem {Functions}, \hyperpage{10}
+
+\end{theindex}

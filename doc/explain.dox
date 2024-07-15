@@ -1,0 +1,93 @@
+/**
+@page Walkthrough
+
+# explain_sec1 Introduction
+This document adds to the intergration of how to build and run the project. 
+# explain_sec2 Building the project
+To run the project, the cmake file is needed along with the fftw library. 
+Currently running cmake will generate the makefile needed to build the project.
+
+@note Currently the code is set on a loop such that it will grab 10 frames from the IQ file and turn them to hdf5 files. The files are stored under the database folder.
+
+# Functions explained 
+
+The IQ file reading will not be covered here since the plan is to replace the IQ file with a buffer providing active feedback through a UDP server. 
+The app will run and capture samples when given the command from the xApp to do so. 
+
+## SFFT
+The SFFT function is used to transform the IQ data into the frequency domain. The function is called with the IQ data and the size of the data. 
+The first portion of the code calculates the proper window size to maintain a resoultion of equal measure across both frequency and time domain. The frequency resolution can be given by 
+the formula \f[ \frac{f_s}{M} \f] where N is the length of the window and \f$f_s\f$ is the sample rate. Within a 5G signal it is cut into discreate chunks of SCS (Subcarrier Spacing) and since the signal is 
+cyclic prefix it will repeat to space each signal since it using OFDM (Orthogonal Frequency Division Multiplexing). A table was made for ease of reference.
+
+A single slot contains 14 OFDM symbols meaning that the depending on SCS the formula to determine the smallest unit in time domain is \f$ \frac{slot_{time}}{14} \f$ with the inverse being the smallest possible dicreate.
+in the frequency domain. 
+
+The window length to make claculation faster is all powers of 2 which to save on calculation time, a LUT is created with 
+
+@code
+const int windowSizeLUT[7] = {64, 128, 256, 512, 1024, 2048, 4096};
+@endcode
+Since the maximum frequency resolution is dependent on the bandwidth an algorigthmic method is needed to determine the 
+
+For 40 MHz 
+
+| SCS |Slot Time |Max Frequency Resolution |Max Time Resolution         |
+| --- | ---------|: --------------------  :| -----------------------    |
+| 15  | 1ms      | 14kHz                   |\f$\frac{1}{14k}\f$         |
+| 30  | 0.5ms    | 28Khz                   | \f$\frac{1}{28k}\f$        |
+
+
+
+The max number of samples within a resource block will vary greatly depending on the SCS to avoid the max resolution in a single domain the window length should be to capture within at least 30 subframes. 
+The window length is calculated by the following formula \f$ \frac{f_s}{M} \f$ where \f$ f_s \f$ is the sample rate and \f$ M \f$ is the window length.
+
+@code 
+   if (signalIndex < iq.size())
+            {
+                std::complex<double> windowSample = iq[signalIndex] * window[j];
+                in[i * windowSize + j][0] = std::real(windowSample);
+                in[i * windowSize + j][1] = std::imag(windowSample);
+            }
+
+@endcode 
+
+This portion of the code is used to create the windowed samples to be used in the FFT. The windowed samples are then stored in the in array, which allows for the FFT to be performed. 
+The fftw function used is 
+
+
+@code 
+ p = fftw_plan_dft_1d(windowSize, in, out, FFTW_FORWARD, FFTW_ESTIMATE);
+@endcode
+
+
+
+The output of the FFT is then stored in the out array. Only half of the out array is stored to avoid redundancy. The output is then stored in the fftData array.
+Since we take the absolute value of the complex number, the struct contains two extra vectors which are the \ref stft structure. 
+
+The way the data is stored within the first array as a absolute value with the power in dB which creates ease of use and reference as a comparsion for debugging 
+purposes. 
+\note Later editions will remove this to save on memory and go straight to the CIR
+
+
+# Running the application 
+
+The executable will convert all the named binary file from the IQ folder to the database folder as a hdf5 file. The hdf5 file is simple in structure as a 2D array with 
+the rows and coloumns serving as the window and frequency bins respectivly.
+
+
+1. Run the cmake file to generate the makefile
+@code 
+mkdir build
+cd build
+cmake ..
+@endcode
+
+2. Run the makefile to build the project
+3. Run the executable to convert the binary files to hdf5 files.
+
+
+
+*/
+
+
