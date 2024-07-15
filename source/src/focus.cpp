@@ -66,7 +66,7 @@ int main(int argc, char *argv[])
         count++;
 
         // saving to hdf5 file
-        writeHdf5(sig, count,hdfName);
+        hdf5file(sig,hdfName);
         fs = 40e6;
         fDelta = floor(40e6 / sig.stftBuff[0].size());
         tDelta = sig.stftAbs[0].size() / fs;

@@ -20,7 +20,7 @@
 #include <omp.h>
 #include <chrono>
 #include "hdf5.h"
-
+#include "H5Cpp.h"
 #define _USE_MATH_DEFINES
 /**
  * @brief Lookup table for the window sizes used for the STFT.
@@ -93,3 +93,5 @@ void cirValue(stft &s);
 void writeHdf5(stft &in, int round,std::string firstName);
 
 void signalHandler(double signal);
+
+void hdf5file(stft &sig, std::string fileName);

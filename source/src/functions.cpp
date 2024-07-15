@@ -1,6 +1,6 @@
 
 #include "stored.h"
-
+#include "H5Cpp.h"
 void hamming(int w, std::vector<double> &window)
 {
     for (int i = 0; i < w; ++i)
@@ -23,7 +23,7 @@ stft stftCalc(std::vector<double> &window, std::vector<std::complex<double>> &iq
     int signalLength = iq.size();
     signalIn.windowSize = windowSizeLUT[2];
     int windowSize = signalIn.windowSize;
-    int hopSize = windowSize /2 ;
+    int hopSize = windowSize / 2;
     signalIn.hopSize = hopSize;
     int N = windowSize;
     int windowCount = floor((signalLength - windowSize) / hopSize);
@@ -47,7 +47,7 @@ stft stftCalc(std::vector<double> &window, std::vector<std::complex<double>> &iq
 
         for (int j = 0; j < windowSize; ++j)
         {
-                   int signalIndex = startIndex + j;
+            int signalIndex = startIndex + j;
             if (signalIndex < iq.size())
             {
                 std::complex<double> windowSample = iq[signalIndex] * window[j];
@@ -64,28 +64,27 @@ stft stftCalc(std::vector<double> &window, std::vector<std::complex<double>> &iq
 
     std::cout << "Starting STFT\n";
 
-    //int odist;
-    //int ostride;
-    //const int dim = 1;
-    //const int n = windowSize;    // size of fft
-   // int howMany = windowCount;   // number of windows
-    //int idist = odist = windowSize; // determines the hop size, distance between the start of the transform to the next
-    //int istride = ostride = 1;   // will take fft every set number of samples
+    // int odist;
+    // int ostride;
+    // const int dim = 1;
+    // const int n = windowSize;    // size of fft
+    // int howMany = windowCount;   // number of windows
+    // int idist = odist = windowSize; // determines the hop size, distance between the start of the transform to the next
+    // int istride = ostride = 1;   // will take fft every set number of samples
 
-    //p = fftw_plan_many_dft(dim, &n, howMany, in, NULL, istride, idist, out, NULL, ostride, odist, FFTW_FORWARD, FFTW_ESTIMATE);
+    // p = fftw_plan_many_dft(dim, &n, howMany, in, NULL, istride, idist, out, NULL, ostride, odist, FFTW_FORWARD, FFTW_ESTIMATE);
     p = fftw_plan_dft_1d(windowSize, in, out, FFTW_FORWARD, FFTW_ESTIMATE);
-   
-    
+
     signalIn.stftBuff.reserve(windowCount);
-    for (int i = 0; i < windowCount*hopSize; i+=hopSize)
+    for (int i = 0; i < windowCount * hopSize; i += hopSize)
     {
         fftw_execute(p);
-        std::vector<std::complex<double>> temp(windowSize/2 + 1);
-        for (int j = 0; j < windowSize/2 + 1; ++j)
+        std::vector<std::complex<double>> temp(windowSize / 2 + 1);
+        for (int j = 0; j < windowSize / 2 + 1; ++j)
         {
             int index = i + j;
 
-            //temp.push_back(std::complex<double>(out[index][0], out[index][1]));
+            // temp.push_back(std::complex<double>(out[index][0], out[index][1]));
             temp[j] = std::complex<double>(out[j][0], out[j][1]);
             // Convert fftw_complex to std::complex
         }
@@ -114,7 +113,7 @@ stft stftCalc(std::vector<double> &window, std::vector<std::complex<double>> &iq
         std::vector<double> temp;
         for (win = var->begin(); win != var->end(); ++win)
         {
-            temp.push_back(20*log10(std::abs(*win)) + .0000000001);
+            temp.push_back(20 * log10(std::abs(*win)) + .0000000001);
         }
         signalIn.stftAbs.push_back(temp);
     }
@@ -154,11 +153,11 @@ void cirValue(stft &s)
  * @brief This function writes the CIR values to an hdf5 file as a matrix array.
  * @param in
  */
-void writeHdf5(stft &in, int round,std::string hdfName)
+void writeHdf5(stft &in, int round, std::string hdfName)
 {
 
     // Define the directory and file name based on the round value
-   std::filesystem::path backOneDir = std::filesystem::current_path().parent_path();
+    std::filesystem::path backOneDir = std::filesystem::current_path().parent_path();
 
     std::string directory = (backOneDir / "database/").string();
     std::string fileName = "CIRUE1_" + std::to_string(round) + ".h5";
@@ -179,16 +178,20 @@ void writeHdf5(stft &in, int round,std::string hdfName)
     }
 
     file_id = H5Fcreate(fullPath.c_str(), H5F_ACC_TRUNC, H5P_DEFAULT, H5P_DEFAULT);
-    if (file_id < 0) goto cleanup_data;
+    if (file_id < 0)
+        goto cleanup_data;
 
     dataspace_id = H5Screate_simple(2, dims, NULL);
-    if (dataspace_id < 0) goto cleanup_file;
+    if (dataspace_id < 0)
+        goto cleanup_file;
 
     dataset_id = H5Dcreate2(file_id, "fft_output", H5T_IEEE_F64LE, dataspace_id, H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT);
-    if (dataset_id < 0) goto cleanup_dataspace;
+    if (dataset_id < 0)
+        goto cleanup_dataspace;
 
     status = H5Dwrite(dataset_id, H5T_IEEE_F64LE, H5S_ALL, H5S_ALL, H5P_DEFAULT, data);
-    if (status < 0) goto cleanup_dataset;
+    if (status < 0)
+        goto cleanup_dataset;
 
 cleanup_dataset:
     H5Dclose(dataset_id);
@@ -198,14 +201,14 @@ cleanup_file:
     H5Fclose(file_id);
 cleanup_data:
     delete[] data;
-///////////////////////////////////////////////////////////////////////////////////////
-   
-     directory = (backOneDir / "./Fullchannel/").string(); // Specify the directory path
-     fileName = "UE1STFT_" + std::to_string(round) + ".h5";
-     fullPath = directory + fileName;
-        data = new double[totalSize];
+    ///////////////////////////////////////////////////////////////////////////////////////
+
+    directory = (backOneDir / "./Fullchannel/").string(); // Specify the directory path
+    fileName = "UE1STFT_" + std::to_string(round) + ".h5";
+    fullPath = directory + fileName;
+    data = new double[totalSize];
     // Fill stftAbsData from in.stftAbs
-  
+
     for (size_t i = 0; i < in.stftCIR.size(); ++i)
     {
         for (size_t j = 0; j < in.stftCIR[i].size(); ++j)
@@ -215,20 +218,20 @@ cleanup_data:
     }
 
     file_id = H5Fcreate(fullPath.c_str(), H5F_ACC_TRUNC, H5P_DEFAULT, H5P_DEFAULT);
-    if (file_id < 0) goto cleanup_data;
+    if (file_id < 0)
+        goto cleanup_data;
 
     dataspace_id = H5Screate_simple(2, dims, NULL);
-    if (dataspace_id < 0) goto cleanup_file;
+    if (dataspace_id < 0)
+        goto cleanup_file;
 
     dataset_id = H5Dcreate2(file_id, "fft_output", H5T_IEEE_F64LE, dataspace_id, H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT);
-    if (dataset_id < 0) goto cleanup_dataspace;
+    if (dataset_id < 0)
+        goto cleanup_dataspace;
 
     status = H5Dwrite(dataset_id, H5T_IEEE_F64LE, H5S_ALL, H5S_ALL, H5P_DEFAULT, data);
-    if (status < 0) goto cleanup_dataset;
-
-
-  
-
+    if (status < 0)
+        goto cleanup_dataset;
 }
 
 void signalHandler(double signal)
@@ -241,3 +244,48 @@ void signalHandler(double signal)
     }
 }
 
+void hdf5file(stft &signal, std::string fileName)
+{
+    std::filesystem::path backOneDir = std::filesystem::current_path().parent_path();
+    std::string hdfName = fileName;
+    bool test = false;
+    std::string folder = test == true ? "/testOutput" : "database/";
+    std::string directory = (backOneDir / folder).string();
+    std::string fullPath = directory + hdfName + ".h5";
+    hsize_t dims[2] = {signal.stftCIR.size(), signal.stftCIR[0].size()};
+    std::cout << fullPath << "\n";
+    H5::H5File file;
+    if (!std::filesystem::exists(fullPath))
+    {
+        file = H5::H5File(fullPath, H5F_ACC_TRUNC);
+        H5::Group group = file.createGroup("/CIR");
+    }
+    else
+    {
+        file = H5::H5File(fullPath, H5F_ACC_RDWR);
+    }
+    // Open the group and count the number of datasets
+    H5::Group cir = file.openGroup("/CIR");
+    int numDatasets = cir.getNumObjs();
+
+    if (numDatasets <= 0)
+    {
+       std::string dataSetName = "CIR0";
+        H5::DataSpace dataspace(2, dims);
+        H5::DataSet dataset = cir.createDataSet(dataSetName, H5::PredType::NATIVE_DOUBLE, dataspace);
+        dataset.write(signal.stftCIR.data(), H5::PredType::NATIVE_DOUBLE);
+      
+    }
+    else if (numDatasets >= 1 && numDatasets <= 10)
+    {
+        std::string dataSetName = "CIR" + std::to_string(numDatasets);
+        H5::DataSpace dataspace(2, dims);
+        H5::DataSet dataset = cir.createDataSet(dataSetName, H5::PredType::NATIVE_DOUBLE, dataspace);
+        dataset.write(signal.stftCIR.data(), H5::PredType::NATIVE_DOUBLE);
+       
+    }
+
+
+
+    return;
+}

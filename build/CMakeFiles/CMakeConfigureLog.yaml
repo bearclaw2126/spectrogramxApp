@@ -1358,3 +1358,515 @@ events:
         
       exitCode: 1
 ...
+
+---
+events:
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.29/Modules/FindHDF5.cmake:238 (try_compile)"
+      - "/usr/share/cmake-3.29/Modules/FindHDF5.cmake:608 (_HDF5_test_regular_compiler_C)"
+      - "CMakeLists.txt:13 (find_package)"
+    directories:
+      source: "/home/migue/Desktop/programs/spectrogram/build/CMakeFiles/CMakeScratch/TryCompile-iYuzkx"
+      binary: "/home/migue/Desktop/programs/spectrogram/build/CMakeFiles/CMakeScratch/TryCompile-iYuzkx"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "-lfftw3_threads -lfftw3 -lm"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/usr/local/lib/cmake/uhd"
+    buildResult:
+      variable: "HDF5_C_COMPILER_NO_INTERROGATE"
+      cached: true
+      stdout: |
+        Change Dir: '/home/migue/Desktop/programs/spectrogram/build/CMakeFiles/CMakeScratch/TryCompile-iYuzkx'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_18c7f
+        [1/2] /usr/bin/cc   -lfftw3_threads -lfftw3 -lm -o CMakeFiles/cmTC_18c7f.dir/cmake_hdf5_test.c.o -c /home/migue/Desktop/programs/spectrogram/build/CMakeFiles/hdf5/cmake_hdf5_test.c
+        FAILED: CMakeFiles/cmTC_18c7f.dir/cmake_hdf5_test.c.o 
+        /usr/bin/cc   -lfftw3_threads -lfftw3 -lm -o CMakeFiles/cmTC_18c7f.dir/cmake_hdf5_test.c.o -c /home/migue/Desktop/programs/spectrogram/build/CMakeFiles/hdf5/cmake_hdf5_test.c
+        /home/migue/Desktop/programs/spectrogram/build/CMakeFiles/hdf5/cmake_hdf5_test.c:1:10: fatal error: hdf5.h: No such file or directory
+            1 | #include <hdf5.h>
+              |          ^~~~~~~~
+        compilation terminated.
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.29/Modules/FindHDF5.cmake:284 (try_compile)"
+      - "/usr/share/cmake-3.29/Modules/FindHDF5.cmake:614 (_HDF5_test_regular_compiler_CXX)"
+      - "CMakeLists.txt:13 (find_package)"
+    directories:
+      source: "/home/migue/Desktop/programs/spectrogram/build/CMakeFiles/CMakeScratch/TryCompile-uOkiqb"
+      binary: "/home/migue/Desktop/programs/spectrogram/build/CMakeFiles/CMakeScratch/TryCompile-uOkiqb"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "-lfftw3_threads -lfftw3 -lm"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/usr/local/lib/cmake/uhd"
+    buildResult:
+      variable: "HDF5_CXX_COMPILER_NO_INTERROGATE"
+      cached: true
+      stdout: |
+        Change Dir: '/home/migue/Desktop/programs/spectrogram/build/CMakeFiles/CMakeScratch/TryCompile-uOkiqb'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_fe676
+        [1/2] /usr/bin/c++   -lfftw3_threads -lfftw3 -lm -o CMakeFiles/cmTC_fe676.dir/cmake_hdf5_test.cxx.o -c /home/migue/Desktop/programs/spectrogram/build/CMakeFiles/hdf5/cmake_hdf5_test.cxx
+        FAILED: CMakeFiles/cmTC_fe676.dir/cmake_hdf5_test.cxx.o 
+        /usr/bin/c++   -lfftw3_threads -lfftw3 -lm -o CMakeFiles/cmTC_fe676.dir/cmake_hdf5_test.cxx.o -c /home/migue/Desktop/programs/spectrogram/build/CMakeFiles/hdf5/cmake_hdf5_test.cxx
+        /home/migue/Desktop/programs/spectrogram/build/CMakeFiles/hdf5/cmake_hdf5_test.cxx:1:10: fatal error: H5Cpp.h: No such file or directory
+            1 | #include <H5Cpp.h>
+              |          ^~~~~~~~~
+        compilation terminated.
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+...
+
+---
+events:
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.29/Modules/FindHDF5.cmake:238 (try_compile)"
+      - "/usr/share/cmake-3.29/Modules/FindHDF5.cmake:608 (_HDF5_test_regular_compiler_C)"
+      - "CMakeLists.txt:13 (find_package)"
+    directories:
+      source: "/home/migue/Desktop/programs/spectrogram/build/CMakeFiles/CMakeScratch/TryCompile-DGrDiC"
+      binary: "/home/migue/Desktop/programs/spectrogram/build/CMakeFiles/CMakeScratch/TryCompile-DGrDiC"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "-lfftw3_threads -lfftw3 -lm"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/usr/local/lib/cmake/uhd"
+    buildResult:
+      variable: "HDF5_C_COMPILER_NO_INTERROGATE"
+      cached: true
+      stdout: |
+        Change Dir: '/home/migue/Desktop/programs/spectrogram/build/CMakeFiles/CMakeScratch/TryCompile-DGrDiC'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_0586e
+        [1/2] /usr/bin/cc   -lfftw3_threads -lfftw3 -lm -o CMakeFiles/cmTC_0586e.dir/cmake_hdf5_test.c.o -c /home/migue/Desktop/programs/spectrogram/build/CMakeFiles/hdf5/cmake_hdf5_test.c
+        FAILED: CMakeFiles/cmTC_0586e.dir/cmake_hdf5_test.c.o 
+        /usr/bin/cc   -lfftw3_threads -lfftw3 -lm -o CMakeFiles/cmTC_0586e.dir/cmake_hdf5_test.c.o -c /home/migue/Desktop/programs/spectrogram/build/CMakeFiles/hdf5/cmake_hdf5_test.c
+        /home/migue/Desktop/programs/spectrogram/build/CMakeFiles/hdf5/cmake_hdf5_test.c:1:10: fatal error: hdf5.h: No such file or directory
+            1 | #include <hdf5.h>
+              |          ^~~~~~~~
+        compilation terminated.
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+...
+
+---
+events:
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.29/Modules/FindHDF5.cmake:238 (try_compile)"
+      - "/usr/share/cmake-3.29/Modules/FindHDF5.cmake:608 (_HDF5_test_regular_compiler_C)"
+      - "CMakeLists.txt:13 (find_package)"
+    directories:
+      source: "/home/migue/Desktop/programs/spectrogram/build/CMakeFiles/CMakeScratch/TryCompile-6VZXg3"
+      binary: "/home/migue/Desktop/programs/spectrogram/build/CMakeFiles/CMakeScratch/TryCompile-6VZXg3"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "-lfftw3_threads -lfftw3 -lm"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/usr/local/lib/cmake/uhd"
+    buildResult:
+      variable: "HDF5_C_COMPILER_NO_INTERROGATE"
+      cached: true
+      stdout: |
+        Change Dir: '/home/migue/Desktop/programs/spectrogram/build/CMakeFiles/CMakeScratch/TryCompile-6VZXg3'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_d0860
+        [1/2] /usr/bin/cc   -lfftw3_threads -lfftw3 -lm -o CMakeFiles/cmTC_d0860.dir/cmake_hdf5_test.c.o -c /home/migue/Desktop/programs/spectrogram/build/CMakeFiles/hdf5/cmake_hdf5_test.c
+        FAILED: CMakeFiles/cmTC_d0860.dir/cmake_hdf5_test.c.o 
+        /usr/bin/cc   -lfftw3_threads -lfftw3 -lm -o CMakeFiles/cmTC_d0860.dir/cmake_hdf5_test.c.o -c /home/migue/Desktop/programs/spectrogram/build/CMakeFiles/hdf5/cmake_hdf5_test.c
+        /home/migue/Desktop/programs/spectrogram/build/CMakeFiles/hdf5/cmake_hdf5_test.c:1:10: fatal error: hdf5.h: No such file or directory
+            1 | #include <hdf5.h>
+              |          ^~~~~~~~
+        compilation terminated.
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+...
+
+---
+events:
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.29/Modules/FindHDF5.cmake:238 (try_compile)"
+      - "/usr/share/cmake-3.29/Modules/FindHDF5.cmake:608 (_HDF5_test_regular_compiler_C)"
+      - "CMakeLists.txt:13 (find_package)"
+    directories:
+      source: "/home/migue/Desktop/programs/spectrogram/build/CMakeFiles/CMakeScratch/TryCompile-T2Bq7g"
+      binary: "/home/migue/Desktop/programs/spectrogram/build/CMakeFiles/CMakeScratch/TryCompile-T2Bq7g"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "-lfftw3_threads -lfftw3 -lm"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/usr/local/lib/cmake/uhd"
+    buildResult:
+      variable: "HDF5_C_COMPILER_NO_INTERROGATE"
+      cached: true
+      stdout: |
+        Change Dir: '/home/migue/Desktop/programs/spectrogram/build/CMakeFiles/CMakeScratch/TryCompile-T2Bq7g'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_61d0c
+        [1/2] /usr/bin/cc   -lfftw3_threads -lfftw3 -lm -o CMakeFiles/cmTC_61d0c.dir/cmake_hdf5_test.c.o -c /home/migue/Desktop/programs/spectrogram/build/CMakeFiles/hdf5/cmake_hdf5_test.c
+        FAILED: CMakeFiles/cmTC_61d0c.dir/cmake_hdf5_test.c.o 
+        /usr/bin/cc   -lfftw3_threads -lfftw3 -lm -o CMakeFiles/cmTC_61d0c.dir/cmake_hdf5_test.c.o -c /home/migue/Desktop/programs/spectrogram/build/CMakeFiles/hdf5/cmake_hdf5_test.c
+        /home/migue/Desktop/programs/spectrogram/build/CMakeFiles/hdf5/cmake_hdf5_test.c:1:10: fatal error: hdf5.h: No such file or directory
+            1 | #include <hdf5.h>
+              |          ^~~~~~~~
+        compilation terminated.
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.29/Modules/FindHDF5.cmake:284 (try_compile)"
+      - "/usr/share/cmake-3.29/Modules/FindHDF5.cmake:614 (_HDF5_test_regular_compiler_CXX)"
+      - "CMakeLists.txt:13 (find_package)"
+    directories:
+      source: "/home/migue/Desktop/programs/spectrogram/build/CMakeFiles/CMakeScratch/TryCompile-kyko0Z"
+      binary: "/home/migue/Desktop/programs/spectrogram/build/CMakeFiles/CMakeScratch/TryCompile-kyko0Z"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "-lfftw3_threads -lfftw3 -lm"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/usr/local/lib/cmake/uhd"
+    buildResult:
+      variable: "HDF5_CXX_COMPILER_NO_INTERROGATE"
+      cached: true
+      stdout: |
+        Change Dir: '/home/migue/Desktop/programs/spectrogram/build/CMakeFiles/CMakeScratch/TryCompile-kyko0Z'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_cd395
+        [1/2] /usr/bin/c++   -lfftw3_threads -lfftw3 -lm -o CMakeFiles/cmTC_cd395.dir/cmake_hdf5_test.cxx.o -c /home/migue/Desktop/programs/spectrogram/build/CMakeFiles/hdf5/cmake_hdf5_test.cxx
+        FAILED: CMakeFiles/cmTC_cd395.dir/cmake_hdf5_test.cxx.o 
+        /usr/bin/c++   -lfftw3_threads -lfftw3 -lm -o CMakeFiles/cmTC_cd395.dir/cmake_hdf5_test.cxx.o -c /home/migue/Desktop/programs/spectrogram/build/CMakeFiles/hdf5/cmake_hdf5_test.cxx
+        /home/migue/Desktop/programs/spectrogram/build/CMakeFiles/hdf5/cmake_hdf5_test.cxx:1:10: fatal error: H5Cpp.h: No such file or directory
+            1 | #include <H5Cpp.h>
+              |          ^~~~~~~~~
+        compilation terminated.
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+...
+
+---
+events:
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.29/Modules/FindHDF5.cmake:238 (try_compile)"
+      - "/usr/share/cmake-3.29/Modules/FindHDF5.cmake:608 (_HDF5_test_regular_compiler_C)"
+      - "CMakeLists.txt:13 (find_package)"
+    directories:
+      source: "/home/migue/Desktop/programs/spectrogram/build/CMakeFiles/CMakeScratch/TryCompile-7wwDmw"
+      binary: "/home/migue/Desktop/programs/spectrogram/build/CMakeFiles/CMakeScratch/TryCompile-7wwDmw"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "-lfftw3_threads -lfftw3 -lm"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/usr/local/lib/cmake/uhd"
+    buildResult:
+      variable: "HDF5_C_COMPILER_NO_INTERROGATE"
+      cached: true
+      stdout: |
+        Change Dir: '/home/migue/Desktop/programs/spectrogram/build/CMakeFiles/CMakeScratch/TryCompile-7wwDmw'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_4c509
+        [1/2] /usr/bin/cc   -lfftw3_threads -lfftw3 -lm -o CMakeFiles/cmTC_4c509.dir/cmake_hdf5_test.c.o -c /home/migue/Desktop/programs/spectrogram/build/CMakeFiles/hdf5/cmake_hdf5_test.c
+        FAILED: CMakeFiles/cmTC_4c509.dir/cmake_hdf5_test.c.o 
+        /usr/bin/cc   -lfftw3_threads -lfftw3 -lm -o CMakeFiles/cmTC_4c509.dir/cmake_hdf5_test.c.o -c /home/migue/Desktop/programs/spectrogram/build/CMakeFiles/hdf5/cmake_hdf5_test.c
+        /home/migue/Desktop/programs/spectrogram/build/CMakeFiles/hdf5/cmake_hdf5_test.c:1:10: fatal error: hdf5.h: No such file or directory
+            1 | #include <hdf5.h>
+              |          ^~~~~~~~
+        compilation terminated.
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+...
+
+---
+events:
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.29/Modules/FindHDF5.cmake:238 (try_compile)"
+      - "/usr/share/cmake-3.29/Modules/FindHDF5.cmake:608 (_HDF5_test_regular_compiler_C)"
+      - "CMakeLists.txt:13 (find_package)"
+    directories:
+      source: "/home/migue/Desktop/programs/spectrogram/build/CMakeFiles/CMakeScratch/TryCompile-tjlI9w"
+      binary: "/home/migue/Desktop/programs/spectrogram/build/CMakeFiles/CMakeScratch/TryCompile-tjlI9w"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "-lfftw3_threads -lfftw3 -lm"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/usr/local/lib/cmake/uhd"
+    buildResult:
+      variable: "HDF5_C_COMPILER_NO_INTERROGATE"
+      cached: true
+      stdout: |
+        Change Dir: '/home/migue/Desktop/programs/spectrogram/build/CMakeFiles/CMakeScratch/TryCompile-tjlI9w'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_b392b
+        [1/2] /usr/bin/cc   -lfftw3_threads -lfftw3 -lm -o CMakeFiles/cmTC_b392b.dir/cmake_hdf5_test.c.o -c /home/migue/Desktop/programs/spectrogram/build/CMakeFiles/hdf5/cmake_hdf5_test.c
+        FAILED: CMakeFiles/cmTC_b392b.dir/cmake_hdf5_test.c.o 
+        /usr/bin/cc   -lfftw3_threads -lfftw3 -lm -o CMakeFiles/cmTC_b392b.dir/cmake_hdf5_test.c.o -c /home/migue/Desktop/programs/spectrogram/build/CMakeFiles/hdf5/cmake_hdf5_test.c
+        /home/migue/Desktop/programs/spectrogram/build/CMakeFiles/hdf5/cmake_hdf5_test.c:1:10: fatal error: hdf5.h: No such file or directory
+            1 | #include <hdf5.h>
+              |          ^~~~~~~~
+        compilation terminated.
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.29/Modules/FindHDF5.cmake:238 (try_compile)"
+      - "/usr/share/cmake-3.29/Modules/FindHDF5.cmake:608 (_HDF5_test_regular_compiler_C)"
+      - "CMakeLists.txt:49 (find_package)"
+    directories:
+      source: "/home/migue/Desktop/programs/spectrogram/build/CMakeFiles/CMakeScratch/TryCompile-s2ewpo"
+      binary: "/home/migue/Desktop/programs/spectrogram/build/CMakeFiles/CMakeScratch/TryCompile-s2ewpo"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "-lfftw3_threads -lfftw3 -lm"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/usr/local/lib/cmake/uhd;/usr/local/lib/cmake/uhd"
+    buildResult:
+      variable: "HDF5_C_COMPILER_NO_INTERROGATE"
+      cached: true
+      stdout: |
+        Change Dir: '/home/migue/Desktop/programs/spectrogram/build/CMakeFiles/CMakeScratch/TryCompile-s2ewpo'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_cf1a6
+        [1/2] /usr/bin/cc   -lfftw3_threads -lfftw3 -lm -o CMakeFiles/cmTC_cf1a6.dir/cmake_hdf5_test.c.o -c /home/migue/Desktop/programs/spectrogram/build/CMakeFiles/hdf5/cmake_hdf5_test.c
+        FAILED: CMakeFiles/cmTC_cf1a6.dir/cmake_hdf5_test.c.o 
+        /usr/bin/cc   -lfftw3_threads -lfftw3 -lm -o CMakeFiles/cmTC_cf1a6.dir/cmake_hdf5_test.c.o -c /home/migue/Desktop/programs/spectrogram/build/CMakeFiles/hdf5/cmake_hdf5_test.c
+        /home/migue/Desktop/programs/spectrogram/build/CMakeFiles/hdf5/cmake_hdf5_test.c:1:10: fatal error: hdf5.h: No such file or directory
+            1 | #include <hdf5.h>
+              |          ^~~~~~~~
+        compilation terminated.
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.29/Modules/FindHDF5.cmake:284 (try_compile)"
+      - "/usr/share/cmake-3.29/Modules/FindHDF5.cmake:614 (_HDF5_test_regular_compiler_CXX)"
+      - "CMakeLists.txt:49 (find_package)"
+    directories:
+      source: "/home/migue/Desktop/programs/spectrogram/build/CMakeFiles/CMakeScratch/TryCompile-HPGZYp"
+      binary: "/home/migue/Desktop/programs/spectrogram/build/CMakeFiles/CMakeScratch/TryCompile-HPGZYp"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "-lfftw3_threads -lfftw3 -lm"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/usr/local/lib/cmake/uhd;/usr/local/lib/cmake/uhd"
+    buildResult:
+      variable: "HDF5_CXX_COMPILER_NO_INTERROGATE"
+      cached: true
+      stdout: |
+        Change Dir: '/home/migue/Desktop/programs/spectrogram/build/CMakeFiles/CMakeScratch/TryCompile-HPGZYp'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_b199b
+        [1/2] /usr/bin/c++   -lfftw3_threads -lfftw3 -lm -o CMakeFiles/cmTC_b199b.dir/cmake_hdf5_test.cxx.o -c /home/migue/Desktop/programs/spectrogram/build/CMakeFiles/hdf5/cmake_hdf5_test.cxx
+        FAILED: CMakeFiles/cmTC_b199b.dir/cmake_hdf5_test.cxx.o 
+        /usr/bin/c++   -lfftw3_threads -lfftw3 -lm -o CMakeFiles/cmTC_b199b.dir/cmake_hdf5_test.cxx.o -c /home/migue/Desktop/programs/spectrogram/build/CMakeFiles/hdf5/cmake_hdf5_test.cxx
+        /home/migue/Desktop/programs/spectrogram/build/CMakeFiles/hdf5/cmake_hdf5_test.cxx:1:10: fatal error: H5Cpp.h: No such file or directory
+            1 | #include <H5Cpp.h>
+              |          ^~~~~~~~~
+        compilation terminated.
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+...
+
+---
+events:
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.29/Modules/FindHDF5.cmake:238 (try_compile)"
+      - "/usr/share/cmake-3.29/Modules/FindHDF5.cmake:608 (_HDF5_test_regular_compiler_C)"
+      - "CMakeLists.txt:13 (find_package)"
+    directories:
+      source: "/home/migue/Desktop/programs/spectrogram/build/CMakeFiles/CMakeScratch/TryCompile-uWsYQU"
+      binary: "/home/migue/Desktop/programs/spectrogram/build/CMakeFiles/CMakeScratch/TryCompile-uWsYQU"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "-lfftw3_threads -lfftw3 -lm"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/usr/local/lib/cmake/uhd"
+    buildResult:
+      variable: "HDF5_C_COMPILER_NO_INTERROGATE"
+      cached: true
+      stdout: |
+        Change Dir: '/home/migue/Desktop/programs/spectrogram/build/CMakeFiles/CMakeScratch/TryCompile-uWsYQU'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_ed15f
+        [1/2] /usr/bin/cc   -lfftw3_threads -lfftw3 -lm -o CMakeFiles/cmTC_ed15f.dir/cmake_hdf5_test.c.o -c /home/migue/Desktop/programs/spectrogram/build/CMakeFiles/hdf5/cmake_hdf5_test.c
+        FAILED: CMakeFiles/cmTC_ed15f.dir/cmake_hdf5_test.c.o 
+        /usr/bin/cc   -lfftw3_threads -lfftw3 -lm -o CMakeFiles/cmTC_ed15f.dir/cmake_hdf5_test.c.o -c /home/migue/Desktop/programs/spectrogram/build/CMakeFiles/hdf5/cmake_hdf5_test.c
+        /home/migue/Desktop/programs/spectrogram/build/CMakeFiles/hdf5/cmake_hdf5_test.c:1:10: fatal error: hdf5.h: No such file or directory
+            1 | #include <hdf5.h>
+              |          ^~~~~~~~
+        compilation terminated.
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.29/Modules/FindHDF5.cmake:238 (try_compile)"
+      - "/usr/share/cmake-3.29/Modules/FindHDF5.cmake:608 (_HDF5_test_regular_compiler_C)"
+      - "CMakeLists.txt:49 (find_package)"
+    directories:
+      source: "/home/migue/Desktop/programs/spectrogram/build/CMakeFiles/CMakeScratch/TryCompile-8AqaiR"
+      binary: "/home/migue/Desktop/programs/spectrogram/build/CMakeFiles/CMakeScratch/TryCompile-8AqaiR"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "-lfftw3_threads -lfftw3 -lm"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/usr/local/lib/cmake/uhd;/usr/local/lib/cmake/uhd"
+    buildResult:
+      variable: "HDF5_C_COMPILER_NO_INTERROGATE"
+      cached: true
+      stdout: |
+        Change Dir: '/home/migue/Desktop/programs/spectrogram/build/CMakeFiles/CMakeScratch/TryCompile-8AqaiR'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_7e7a3
+        [1/2] /usr/bin/cc   -lfftw3_threads -lfftw3 -lm -o CMakeFiles/cmTC_7e7a3.dir/cmake_hdf5_test.c.o -c /home/migue/Desktop/programs/spectrogram/build/CMakeFiles/hdf5/cmake_hdf5_test.c
+        FAILED: CMakeFiles/cmTC_7e7a3.dir/cmake_hdf5_test.c.o 
+        /usr/bin/cc   -lfftw3_threads -lfftw3 -lm -o CMakeFiles/cmTC_7e7a3.dir/cmake_hdf5_test.c.o -c /home/migue/Desktop/programs/spectrogram/build/CMakeFiles/hdf5/cmake_hdf5_test.c
+        /home/migue/Desktop/programs/spectrogram/build/CMakeFiles/hdf5/cmake_hdf5_test.c:1:10: fatal error: hdf5.h: No such file or directory
+            1 | #include <hdf5.h>
+              |          ^~~~~~~~
+        compilation terminated.
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.29/Modules/FindHDF5.cmake:284 (try_compile)"
+      - "/usr/share/cmake-3.29/Modules/FindHDF5.cmake:614 (_HDF5_test_regular_compiler_CXX)"
+      - "CMakeLists.txt:49 (find_package)"
+    directories:
+      source: "/home/migue/Desktop/programs/spectrogram/build/CMakeFiles/CMakeScratch/TryCompile-H3AX2x"
+      binary: "/home/migue/Desktop/programs/spectrogram/build/CMakeFiles/CMakeScratch/TryCompile-H3AX2x"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "-lfftw3_threads -lfftw3 -lm"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/usr/local/lib/cmake/uhd;/usr/local/lib/cmake/uhd"
+    buildResult:
+      variable: "HDF5_CXX_COMPILER_NO_INTERROGATE"
+      cached: true
+      stdout: |
+        Change Dir: '/home/migue/Desktop/programs/spectrogram/build/CMakeFiles/CMakeScratch/TryCompile-H3AX2x'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_5551b
+        [1/2] /usr/bin/c++   -lfftw3_threads -lfftw3 -lm -o CMakeFiles/cmTC_5551b.dir/cmake_hdf5_test.cxx.o -c /home/migue/Desktop/programs/spectrogram/build/CMakeFiles/hdf5/cmake_hdf5_test.cxx
+        FAILED: CMakeFiles/cmTC_5551b.dir/cmake_hdf5_test.cxx.o 
+        /usr/bin/c++   -lfftw3_threads -lfftw3 -lm -o CMakeFiles/cmTC_5551b.dir/cmake_hdf5_test.cxx.o -c /home/migue/Desktop/programs/spectrogram/build/CMakeFiles/hdf5/cmake_hdf5_test.cxx
+        /home/migue/Desktop/programs/spectrogram/build/CMakeFiles/hdf5/cmake_hdf5_test.cxx:1:10: fatal error: H5Cpp.h: No such file or directory
+            1 | #include <H5Cpp.h>
+              |          ^~~~~~~~~
+        compilation terminated.
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+...
+
+---
+events:
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.29/Modules/FindHDF5.cmake:238 (try_compile)"
+      - "/usr/share/cmake-3.29/Modules/FindHDF5.cmake:608 (_HDF5_test_regular_compiler_C)"
+      - "CMakeLists.txt:13 (find_package)"
+    directories:
+      source: "/home/migue/Desktop/programs/spectrogram/build/CMakeFiles/CMakeScratch/TryCompile-GL9X9I"
+      binary: "/home/migue/Desktop/programs/spectrogram/build/CMakeFiles/CMakeScratch/TryCompile-GL9X9I"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "-lfftw3_threads -lfftw3 -lm"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/usr/local/lib/cmake/uhd"
+    buildResult:
+      variable: "HDF5_C_COMPILER_NO_INTERROGATE"
+      cached: true
+      stdout: |
+        Change Dir: '/home/migue/Desktop/programs/spectrogram/build/CMakeFiles/CMakeScratch/TryCompile-GL9X9I'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_93f37
+        [1/2] /usr/bin/cc   -lfftw3_threads -lfftw3 -lm -o CMakeFiles/cmTC_93f37.dir/cmake_hdf5_test.c.o -c /home/migue/Desktop/programs/spectrogram/build/CMakeFiles/hdf5/cmake_hdf5_test.c
+        FAILED: CMakeFiles/cmTC_93f37.dir/cmake_hdf5_test.c.o 
+        /usr/bin/cc   -lfftw3_threads -lfftw3 -lm -o CMakeFiles/cmTC_93f37.dir/cmake_hdf5_test.c.o -c /home/migue/Desktop/programs/spectrogram/build/CMakeFiles/hdf5/cmake_hdf5_test.c
+        /home/migue/Desktop/programs/spectrogram/build/CMakeFiles/hdf5/cmake_hdf5_test.c:1:10: fatal error: hdf5.h: No such file or directory
+            1 | #include <hdf5.h>
+              |          ^~~~~~~~
+        compilation terminated.
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.29/Modules/FindHDF5.cmake:238 (try_compile)"
+      - "/usr/share/cmake-3.29/Modules/FindHDF5.cmake:608 (_HDF5_test_regular_compiler_C)"
+      - "CMakeLists.txt:47 (find_package)"
+    directories:
+      source: "/home/migue/Desktop/programs/spectrogram/build/CMakeFiles/CMakeScratch/TryCompile-P4We45"
+      binary: "/home/migue/Desktop/programs/spectrogram/build/CMakeFiles/CMakeScratch/TryCompile-P4We45"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "-lfftw3_threads -lfftw3 -lm"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/usr/local/lib/cmake/uhd;/usr/local/lib/cmake/uhd"
+    buildResult:
+      variable: "HDF5_C_COMPILER_NO_INTERROGATE"
+      cached: true
+      stdout: |
+        Change Dir: '/home/migue/Desktop/programs/spectrogram/build/CMakeFiles/CMakeScratch/TryCompile-P4We45'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_3732b
+        [1/2] /usr/bin/cc   -lfftw3_threads -lfftw3 -lm -o CMakeFiles/cmTC_3732b.dir/cmake_hdf5_test.c.o -c /home/migue/Desktop/programs/spectrogram/build/CMakeFiles/hdf5/cmake_hdf5_test.c
+        FAILED: CMakeFiles/cmTC_3732b.dir/cmake_hdf5_test.c.o 
+        /usr/bin/cc   -lfftw3_threads -lfftw3 -lm -o CMakeFiles/cmTC_3732b.dir/cmake_hdf5_test.c.o -c /home/migue/Desktop/programs/spectrogram/build/CMakeFiles/hdf5/cmake_hdf5_test.c
+        /home/migue/Desktop/programs/spectrogram/build/CMakeFiles/hdf5/cmake_hdf5_test.c:1:10: fatal error: hdf5.h: No such file or directory
+            1 | #include <hdf5.h>
+              |          ^~~~~~~~
+        compilation terminated.
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.29/Modules/FindHDF5.cmake:284 (try_compile)"
+      - "/usr/share/cmake-3.29/Modules/FindHDF5.cmake:614 (_HDF5_test_regular_compiler_CXX)"
+      - "CMakeLists.txt:47 (find_package)"
+    directories:
+      source: "/home/migue/Desktop/programs/spectrogram/build/CMakeFiles/CMakeScratch/TryCompile-K33LzA"
+      binary: "/home/migue/Desktop/programs/spectrogram/build/CMakeFiles/CMakeScratch/TryCompile-K33LzA"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "-lfftw3_threads -lfftw3 -lm"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/usr/local/lib/cmake/uhd;/usr/local/lib/cmake/uhd"
+    buildResult:
+      variable: "HDF5_CXX_COMPILER_NO_INTERROGATE"
+      cached: true
+      stdout: |
+        Change Dir: '/home/migue/Desktop/programs/spectrogram/build/CMakeFiles/CMakeScratch/TryCompile-K33LzA'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_ebe1e
+        [1/2] /usr/bin/c++   -lfftw3_threads -lfftw3 -lm -o CMakeFiles/cmTC_ebe1e.dir/cmake_hdf5_test.cxx.o -c /home/migue/Desktop/programs/spectrogram/build/CMakeFiles/hdf5/cmake_hdf5_test.cxx
+        FAILED: CMakeFiles/cmTC_ebe1e.dir/cmake_hdf5_test.cxx.o 
+        /usr/bin/c++   -lfftw3_threads -lfftw3 -lm -o CMakeFiles/cmTC_ebe1e.dir/cmake_hdf5_test.cxx.o -c /home/migue/Desktop/programs/spectrogram/build/CMakeFiles/hdf5/cmake_hdf5_test.cxx
+        /home/migue/Desktop/programs/spectrogram/build/CMakeFiles/hdf5/cmake_hdf5_test.cxx:1:10: fatal error: H5Cpp.h: No such file or directory
+            1 | #include <H5Cpp.h>
+              |          ^~~~~~~~~
+        compilation terminated.
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+...

@@ -296,6 +296,37 @@ DART_TESTING_TIMEOUT:STRING=1500
 //Path to a program.
 GITCOMMAND:FILEPATH=/usr/bin/git
 
+//HDF5 CXX Wrapper compiler.  Used only to detect HDF5 compile
+// flags.
+HDF5_CXX_COMPILER_EXECUTABLE:FILEPATH=/usr/bin/h5c++
+
+//Path to a library.
+HDF5_CXX_LIBRARY_crypto:FILEPATH=/usr/lib/x86_64-linux-gnu/libcrypto.so
+
+//Path to a library.
+HDF5_CXX_LIBRARY_curl:FILEPATH=/usr/lib/x86_64-linux-gnu/libcurl.so
+
+//Path to a library.
+HDF5_CXX_LIBRARY_dl:FILEPATH=/usr/lib/x86_64-linux-gnu/libdl.a
+
+//Path to a library.
+HDF5_CXX_LIBRARY_hdf5:FILEPATH=/usr/lib/x86_64-linux-gnu/hdf5/serial/libhdf5.so
+
+//Path to a library.
+HDF5_CXX_LIBRARY_hdf5_cpp:FILEPATH=/usr/lib/x86_64-linux-gnu/hdf5/serial/libhdf5_cpp.so
+
+//Path to a library.
+HDF5_CXX_LIBRARY_m:FILEPATH=/usr/lib/x86_64-linux-gnu/libm.so
+
+//Path to a library.
+HDF5_CXX_LIBRARY_pthread:FILEPATH=/usr/lib/x86_64-linux-gnu/libpthread.a
+
+//Path to a library.
+HDF5_CXX_LIBRARY_sz:FILEPATH=/usr/lib/x86_64-linux-gnu/libsz.so
+
+//Path to a library.
+HDF5_CXX_LIBRARY_z:FILEPATH=/usr/lib/x86_64-linux-gnu/libz.so
+
 //HDF5 C Wrapper compiler.  Used only to detect HDF5 compile flags.
 HDF5_C_COMPILER_EXECUTABLE:FILEPATH=/usr/bin/h5cc
 
@@ -573,11 +604,15 @@ CTEST_SUBMIT_RETRY_DELAY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: DART_TESTING_TIMEOUT
 DART_TESTING_TIMEOUT-ADVANCED:INTERNAL=1
 //Details about finding HDF5
-FIND_PACKAGE_MESSAGE_DETAILS_HDF5:INTERNAL=[/usr/lib/x86_64-linux-gnu/hdf5/serial/libhdf5.so;/usr/lib/x86_64-linux-gnu/libcrypto.so;/usr/lib/x86_64-linux-gnu/libcurl.so;/usr/lib/x86_64-linux-gnu/libpthread.a;/usr/lib/x86_64-linux-gnu/libsz.so;/usr/lib/x86_64-linux-gnu/libz.so;/usr/lib/x86_64-linux-gnu/libdl.a;/usr/lib/x86_64-linux-gnu/libm.so][c ][v1.10.7()]
+FIND_PACKAGE_MESSAGE_DETAILS_HDF5:INTERNAL=[/usr/lib/x86_64-linux-gnu/hdf5/serial/libhdf5.so;/usr/lib/x86_64-linux-gnu/libcrypto.so;/usr/lib/x86_64-linux-gnu/libcurl.so;/usr/lib/x86_64-linux-gnu/libpthread.a;/usr/lib/x86_64-linux-gnu/libsz.so;/usr/lib/x86_64-linux-gnu/libz.so;/usr/lib/x86_64-linux-gnu/libdl.a;/usr/lib/x86_64-linux-gnu/libm.so;/usr/lib/x86_64-linux-gnu/hdf5/serial/libhdf5_cpp.so;/usr/lib/x86_64-linux-gnu/hdf5/serial/libhdf5.so;/usr/lib/x86_64-linux-gnu/libcrypto.so;/usr/lib/x86_64-linux-gnu/libcurl.so;/usr/lib/x86_64-linux-gnu/libpthread.a;/usr/lib/x86_64-linux-gnu/libsz.so;/usr/lib/x86_64-linux-gnu/libz.so;/usr/lib/x86_64-linux-gnu/libdl.a;/usr/lib/x86_64-linux-gnu/libm.so][cfound components: C CXX ][v1.10.7()]
 //Details about finding UHD
 FIND_PACKAGE_MESSAGE_DETAILS_UHD:INTERNAL=[/usr/local/lib/libuhd.so][/usr/local/include][v()]
 //ADVANCED property for variable: GITCOMMAND
 GITCOMMAND-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: HDF5_CXX_COMPILER_EXECUTABLE
+HDF5_CXX_COMPILER_EXECUTABLE-ADVANCED:INTERNAL=1
+//Result of TRY_COMPILE
+HDF5_CXX_COMPILER_NO_INTERROGATE:INTERNAL=FALSE
 //ADVANCED property for variable: HDF5_C_COMPILER_EXECUTABLE
 HDF5_C_COMPILER_EXECUTABLE-ADVANCED:INTERNAL=1
 //Result of TRY_COMPILE
