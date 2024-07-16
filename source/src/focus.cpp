@@ -16,8 +16,6 @@ int main(int argc, char *argv[])
     double fs;
     double fDelta;
     double tDelta;
-    double sumofSquares;
-    double rms;
     std::vector<std::complex<double>> iqNorm;
     std::streampos begin, end;
     

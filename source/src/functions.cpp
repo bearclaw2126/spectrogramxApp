@@ -21,7 +21,7 @@ stft stftCalc(std::vector<double> &window, std::vector<std::complex<double>> &iq
     int scs = 30e3;
     int index = log2(ceil(fs / (scs * 12)));
     int signalLength = iq.size();
-    signalIn.windowSize = windowSizeLUT[2];
+    signalIn.windowSize = windowSizeLUT[1];
     int windowSize = signalIn.windowSize;
     int hopSize = windowSize / 2;
     signalIn.hopSize = hopSize;
@@ -80,7 +80,7 @@ stft stftCalc(std::vector<double> &window, std::vector<std::complex<double>> &iq
     {
         fftw_execute(p);
         std::vector<std::complex<double>> temp(windowSize / 2 + 1);
-        for (int j = 0; j < windowSize / 2 + 1; ++j)
+        for (int j = 0; j < windowSize / 2; ++j)
         {
             int index = i + j;
 
@@ -146,6 +146,7 @@ void cirValue(stft &s)
         }
         s.stftCIR.push_back(temp);
     }
+    std::cout << "Calculated CIR\n" << s.stftCIR[0].size() << std::endl;
 }
 
 /**
@@ -273,7 +274,7 @@ void hdf5file(stft &signal, std::string fileName)
        std::string dataSetName = "CIR0";
         H5::DataSpace dataspace(2, dims);
         H5::DataSet dataset = cir.createDataSet(dataSetName, H5::PredType::NATIVE_DOUBLE, dataspace);
-        dataset.write(signal.stftCIR.data(), H5::PredType::NATIVE_DOUBLE);
+        dataset.write(signal.stftAbs.data(), H5::PredType::NATIVE_DOUBLE);
       
     }
     else if (numDatasets >= 1 && numDatasets <= 10)
@@ -281,7 +282,7 @@ void hdf5file(stft &signal, std::string fileName)
         std::string dataSetName = "CIR" + std::to_string(numDatasets);
         H5::DataSpace dataspace(2, dims);
         H5::DataSet dataset = cir.createDataSet(dataSetName, H5::PredType::NATIVE_DOUBLE, dataspace);
-        dataset.write(signal.stftCIR.data(), H5::PredType::NATIVE_DOUBLE);
+        dataset.write(signal.stftAbs.data(), H5::PredType::NATIVE_DOUBLE);
        
     }
 
