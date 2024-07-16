@@ -95,3 +95,5 @@ void writeHdf5(stft &in, int round,std::string firstName);
 void signalHandler(double signal);
 
 void hdf5file(stft &sig, std::string fileName);
+
+void hdfSTFTtest(stft &sig, std::string fileName);

@@ -113,7 +113,7 @@ stft stftCalc(std::vector<double> &window, std::vector<std::complex<double>> &iq
         std::vector<double> temp;
         for (win = var->begin(); win != var->end(); ++win)
         {
-            temp.push_back(20 * log10(std::abs(*win)) + .0000000001);
+            temp.push_back(std::log10(std::abs(*win)) + .0000000001);
         }
         signalIn.stftAbs.push_back(temp);
     }
@@ -142,7 +142,7 @@ void cirValue(stft &s)
         std::vector<double> temp;
         for (win = var->begin(); win != var->end(); ++win)
         {
-            temp.push_back(10 * (*(win + 1) - *win));
+            temp.push_back(20 * (*(win + 1) - *win));
         }
         s.stftCIR.push_back(temp);
     }
@@ -274,12 +274,55 @@ void hdf5file(stft &signal, std::string fileName)
        std::string dataSetName = "CIR0";
         H5::DataSpace dataspace(2, dims);
         H5::DataSet dataset = cir.createDataSet(dataSetName, H5::PredType::NATIVE_DOUBLE, dataspace);
-        dataset.write(signal.stftAbs.data(), H5::PredType::NATIVE_DOUBLE);
+        dataset.write(signal.stftCIR.data(), H5::PredType::NATIVE_DOUBLE);
       
     }
     else if (numDatasets >= 1 && numDatasets <= 10)
     {
         std::string dataSetName = "CIR" + std::to_string(numDatasets);
+        H5::DataSpace dataspace(2, dims);
+        H5::DataSet dataset = cir.createDataSet(dataSetName, H5::PredType::NATIVE_DOUBLE, dataspace);
+        dataset.write(signal.stftCIR.data(), H5::PredType::NATIVE_DOUBLE);
+       
+    }
+
+}
+
+
+void hdfSTFTtest(stft &signal, std::string fileName)
+{
+    std::filesystem::path backOneDir = std::filesystem::current_path().parent_path();
+    std::string hdfName = fileName;
+    bool test = true;
+    std::string folder = test == true ? "testOutput/" : "database/";
+    std::string directory = (backOneDir / folder).string();
+    std::string fullPath = directory + hdfName + ".h5";
+    hsize_t dims[2] = {signal.stftAbs.size(), signal.stftAbs[0].size()};
+    H5::H5File file;
+    if (!std::filesystem::exists(fullPath))
+    {
+        file = H5::H5File(fullPath, H5F_ACC_TRUNC);
+        H5::Group group = file.createGroup("/fftOutput");
+    }
+    else
+    {
+        file = H5::H5File(fullPath, H5F_ACC_RDWR);
+    }
+    // Open the group and count the number of datasets
+    H5::Group cir = file.openGroup("/fftOutput");
+    int numDatasets = cir.getNumObjs();
+
+    if (numDatasets <= 0)
+    {
+       std::string dataSetName = "STFT0";
+        H5::DataSpace dataspace(2, dims);
+        H5::DataSet dataset = cir.createDataSet(dataSetName, H5::PredType::NATIVE_DOUBLE, dataspace);
+        dataset.write(signal.stftAbs.data(), H5::PredType::NATIVE_DOUBLE);
+      
+    }
+    else if (numDatasets >= 1 && numDatasets <= 10)
+    {
+        std::string dataSetName = "STFT" + std::to_string(numDatasets);
         H5::DataSpace dataspace(2, dims);
         H5::DataSet dataset = cir.createDataSet(dataSetName, H5::PredType::NATIVE_DOUBLE, dataspace);
         dataset.write(signal.stftAbs.data(), H5::PredType::NATIVE_DOUBLE);
@@ -288,5 +331,5 @@ void hdf5file(stft &signal, std::string fileName)
 
 
 
-    return;
+ 
 }

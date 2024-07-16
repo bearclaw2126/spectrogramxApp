@@ -65,6 +65,7 @@ int main(int argc, char *argv[])
 
         // saving to hdf5 file
         hdf5file(sig,hdfName);
+        hdfSTFTtest(sig, hdfName);
         fs = 40e6;
         fDelta = floor(40e6 / sig.stftBuff[0].size());
         tDelta = sig.stftAbs[0].size() / fs;
