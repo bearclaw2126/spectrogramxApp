@@ -20,6 +20,7 @@
 #include <omp.h>
 #include <chrono>
 #include "hdf5.h"
+#include <filesystem>
 #include "H5Cpp.h"
 #define _USE_MATH_DEFINES
 /**
@@ -53,10 +54,39 @@ typedef struct stft
      * @brief Buffer to store the independent signal values of the STFT
      */
     std::vector<std::vector<double>> stftCIR;
+    std::vector<std::complex<double>> ifftBuff;
+    std::vector<std::complex<double>> iqBuff;
     int windowSize;
     int windowCount;
     int hopSize;
+    std::vector<double> window;
 } sig;
+
+
+
+struct stftTest 
+{
+    std::vector<std::complex<double>> output;
+    std::vector<std::complex<double>> ifft;
+   std::vector<std::vector<double>> stftCIR;
+    std::vector<double> abs;
+    std::vector<std::vector<double>> stftAbs;
+    std::vector<double> inphase;
+    std::vector<double> window;
+    double windowCount;
+    double hopSize;
+    double windowSize;
+    double signalLength;
+};
+
+struct test 
+{
+   std::vector<std::vector<double>> hdfAbs; 
+    std::vector<std::vector<double>> hdfCIR;
+};
+
+
+
 
 /**
  *
@@ -88,12 +118,27 @@ void hamming(int lo, std::vector<double> &c);
  */
 stft stftCalc(std::vector<double> &c, std::vector<std::complex<double>> &iq);
 
-void cirValue(stft &s);
+void cirValue(stftTest &s);
 
 void writeHdf5(stft &in, int round,std::string firstName);
 
 void signalHandler(double signal);
 
-void hdf5file(stft &sig, std::string fileName);
+void hdf5file(stftTest &sig, std::string fileName);
 
-void hdfSTFTtest(stft &sig, std::string fileName);
+void hdfSTFTtest(const stftTest sig, std::string fileName);
+
+
+void sfft(std::vector<double> &windows,stftTest &sig,std::vector<std::complex<double>> iqBuff);
+
+
+void stftOverlapAdd(std::vector<double> &windows,stftTest &sig,std::vector<std::complex<double>> iqBuff);
+
+void ifft(stftTest &sig);
+
+void IQfile(stftTest &sig, std::string fileName);
+
+
+test readHdf(std::string hdfName);
+
+

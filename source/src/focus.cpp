@@ -1,6 +1,6 @@
 #include "stored.h"
 #include <filesystem>
-
+#include "sciplot/sciplot.hpp"
 int main(int argc, char *argv[])
 {
    
@@ -9,16 +9,15 @@ int main(int argc, char *argv[])
     std::string homeDir = getenv("HOME");
     std::filesystem::path backOneDir = std::filesystem::current_path();
     std::string filePath = filePathEnv ? homeDir +filePathEnv : "../IQbin/IQbin/UE1-0503-1857.dat";
-    std::string hdfName = hdfNameEnv ? hdfNameEnv : "default.h5";
-    stft sig;
+    std::string hdfName = hdfNameEnv ? hdfNameEnv : "default";
+    stftTest sig;
     std::vector<double> window;
     std::vector<std::complex<double>> iqBuff;
     double fs;
     double fDelta;
     double tDelta;
-    std::vector<std::complex<double>> iqNorm;
     std::streampos begin, end;
-    
+
     
     // std::ofstream outfile("UE1-0503-1857-test3.csv", std::ios::out | std::ios::trunc);
     // std::ofstream testfile("testfile.csv", std::ios::out | std::ios::trunc);
@@ -41,7 +40,7 @@ int main(int argc, char *argv[])
     unsigned int chunkSize = 200000 * (2 * sizeof(int16_t));
     const int seeker = 10;
     int count = 0;
-    file.seekg(64, std::ios::beg);
+    file.seekg(64, std::ios::beg); 
 
     for (int i = 0; i < seeker; ++i)
     {
@@ -58,28 +57,32 @@ int main(int argc, char *argv[])
         //file.seekg(chunkSize, std::ios::cur);
         std::cout << "Samples : " << iqBuff.size() << "\n";
     
-   
-        sig = stftCalc(window, iqBuff);
+    
+        sfft(window,sig, iqBuff);
         cirValue(sig);
         count++;
+
 
         // saving to hdf5 file
         hdf5file(sig,hdfName);
         hdfSTFTtest(sig, hdfName);
+        //IQfile(sig, hdfName);
         fs = 40e6;
-        fDelta = floor(40e6 / sig.stftBuff[0].size());
+        fDelta = floor(40e6 / sig.stftAbs[0].size());
         tDelta = sig.stftAbs[0].size() / fs;
         // tDelta  = 1 / fDelta;
-
+        
         sig.stftCIR.clear();
-        sig.stftBuff.clear();
-        iqBuff.clear();
+        sig.output.clear();
+      
     
     }
+    
+
     std::cout << "Frequency Resolution: " << fDelta / 1000 << " kHz \n";
     std::cout << "Window Duration: " << tDelta * 1000 << " ms \n";
     std::cout << "Total Time: " << tDelta + (sig.windowCount - 1) * (sig.hopSize / fs) * 1000 << " ms \n";
 
-    file.close();
+  file.close();
     }
 
