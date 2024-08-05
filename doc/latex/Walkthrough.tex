@@ -1,0 +1,83 @@
+\hypertarget{Walkthrough_autotoc_md0}{}\doxysection{explain\+\_\+sec1 Introduction}\label{Walkthrough_autotoc_md0}
+This document adds to the intergration of how to build and run the project. \hypertarget{Walkthrough_autotoc_md1}{}\doxysection{explain\+\_\+sec2 Building the project}\label{Walkthrough_autotoc_md1}
+To run the project, the cmake file is needed along with the fftw library. Currently running cmake will generate the makefile needed to build the project.
+
+\begin{DoxyNote}{Note}
+Currently the code is set on a loop such that it will grab 10 frames from the IQ file and turn them to hdf5 files. The files are stored under the database folder.
+\end{DoxyNote}
+\hypertarget{Walkthrough_autotoc_md2}{}\doxysection{Functions explained}\label{Walkthrough_autotoc_md2}
+The IQ file reading will not be covered here since the plan is to replace the IQ file with a buffer providing active feedback through a UDP server. The app will run and capture samples when given the command from the x\+App to do so.\hypertarget{Walkthrough_autotoc_md3}{}\doxysubsection{SFFT}\label{Walkthrough_autotoc_md3}
+The SFFT function is used to transform the IQ data into the frequency domain. The function is called with the IQ data and the size of the data. The first portion of the code calculates the proper window size to maintain a resoultion of equal measure across both frequency and time domain. The frequency resolution can be given by the formula \[ \frac{f_s}{M} \] where N is the length of the window and $f_s$ is the sample rate. Within a 5G signal it is cut into discreate chunks of SCS (Subcarrier Spacing) and since the signal is cyclic prefix it will repeat to space each signal since it using OFDM (Orthogonal Frequency Division Multiplexing). A table was made for ease of reference.
+
+A single slot contains 14 OFDM symbols meaning that the depending on SCS the formula to determine the smallest unit in time domain is $ \frac{slot_{time}}{14} $ with the inverse being the smallest possible dicreate. in the frequency domain.
+
+The window length to make claculation faster is all powers of 2 which to save on calculation time, a LUT is created with
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const} \textcolor{keywordtype}{int} windowSizeLUT[7] = \{64, 128, 256, 512, 1024, 2048, 4096\};}
+
+\end{DoxyCode}
+ Since the maximum frequency resolution is dependent on the bandwidth an algorigthmic method is needed to determine the
+
+For 40 MHz
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{4}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ SCS   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Slot Time   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Max Frequency Resolution   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Max Time Resolution    }\\\cline{1-4}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ SCS   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Slot Time   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Max Frequency Resolution   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Max Time Resolution    }\\\cline{1-4}
+\endhead
+15   &1ms   &\PBS\centering 14k\+Hz   &$\frac{1}{14k}$    \\\cline{1-4}
+30   &0.\+5ms   &\PBS\centering 28Khz   &$\frac{1}{28k}$   \\\cline{1-4}
+\end{longtabu}
+
+
+The max number of samples within a resource block will vary greatly depending on the SCS to avoid the max resolution in a single domain the window length should be to capture within at least 30 subframes. The window length is calculated by the following formula $ \frac{f_s}{M} $ where $ f_s $ is the sample rate and $ M $ is the window length.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordflow}{if} (signalIndex < iq.size())}
+\DoxyCodeLine{         \{}
+\DoxyCodeLine{             std::complex<double> windowSample = iq[signalIndex] * window[j];}
+\DoxyCodeLine{             in[i * windowSize + j][0] = std::real(windowSample);}
+\DoxyCodeLine{             in[i * windowSize + j][1] = std::imag(windowSample);}
+\DoxyCodeLine{         \}}
+
+\end{DoxyCode}
+
+
+This portion of the code is used to create the windowed samples to be used in the FFT. The windowed samples are then stored in the in array, which allows for the FFT to be performed. The fftw function used is
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{p = fftw\_plan\_dft\_1d(windowSize, in, out, FFTW\_FORWARD, FFTW\_ESTIMATE);}
+
+\end{DoxyCode}
+
+
+The output of the FFT is then stored in the out array. Only half of the out array is stored to avoid redundancy. The output is then stored in the fft\+Data array. Since we take the absolute value of the complex number, the struct contains two extra vectors which are the \mbox{\hyperlink{structstft}{stft}} structure.
+
+The way the data is stored within the first array as a absolute value with the power in dB which creates ease of use and reference as a comparsion for debugging purposes. \begin{DoxyNote}{Note}
+Later editions will remove this to save on memory and go straight to the CIR
+\end{DoxyNote}
+\hypertarget{Walkthrough_autotoc_md4}{}\doxysection{Running the application}\label{Walkthrough_autotoc_md4}
+The executable will convert all the named binary file from the IQ folder to the database folder as a hdf5 file. The hdf5 file is simple in structure as a 2D array with the rows and coloumns serving as the window and frequency bins respectivly.
+
+
+\begin{DoxyEnumerate}
+\item Run the cmake file to generate the makefile 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{mkdir build}
+\DoxyCodeLine{cd build}
+\DoxyCodeLine{cmake ..}
+
+\end{DoxyCode}
+
+\item Run the makefile to build the project
+\item Run the executable to convert the binary files to hdf5 files. 
+\end{DoxyEnumerate}
