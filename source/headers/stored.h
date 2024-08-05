@@ -136,7 +136,7 @@ void stftOverlapAdd(std::vector<double> &windows,stftTest &sig,std::vector<std::
 
 void ifft(stftTest &sig);
 
-void IQfile(stftTest &sig, std::string fileName);
+void IQfile(std::vector<std::complex<double>> &iq, std::string fileName);
 
 
 test readHdf(std::string hdfName);

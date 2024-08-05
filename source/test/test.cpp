@@ -3,8 +3,10 @@
 #include "stored.h"
 #include "sciplot/sciplot.hpp"
 #include "gnuplot-iostream.h"
-
-TEST(test5g, test5g)
+#include <string>
+#include <cstring>
+#include <arpa/inet.h>
+/*TEST(test5g, test5g)
 {
     const char *filePathEnv = std::getenv("FILE_PATH");
     const char *hdfNameEnv = std::getenv("HDF_NAME");
@@ -205,6 +207,66 @@ TEST(test5g, test5g)
     gp << "set ylabel 'Frequency'\n";
     gp << "set cblabel 'Magnitude'\n";
     gp << "splot 'testWave.txt'  matrix using 2:1:3 with image\n";
+}*/
+#define PORT 5501
+#define BUFFER_SIZE 8192
+struct IQSamples {
+    std::vector<double> I;
+    std::vector<double> Q;
+};
+
+TEST(test5g,test5g)
+{   
+    const char* hdfNameEnv = std::getenv("HDF_NAME");
+    std::string homeDir = getenv("HOME");
+    std::string hdfName = hdfNameEnv ? hdfNameEnv : "default";
+    int sockfd;
+    std::vector<std::complex<double>> iqBuff;
+    IQSamples samples;
+    char buffer[BUFFER_SIZE];
+    ssize_t n;
+    sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    struct sockaddr_in servaddr;
+     if (sockfd < 0) {
+        std::cerr << "Socket creation failed." << std::endl;
+        
+    }
+    memset(&servaddr, 0, sizeof(servaddr));
+    servaddr.sin_family = AF_INET;
+    servaddr.sin_addr.s_addr = INADDR_ANY;
+    servaddr.sin_port = htons(PORT);
+    servaddr.sin_addr.s_addr = inet_addr("127.0.0.1");
+    if (bind(sockfd, (const struct sockaddr *)&servaddr, sizeof(servaddr)) < 0) 
+    {
+        std::cerr << "Bind failed." << std::endl;
+        close(sockfd);
+        
+    }
+     std::cout << "Listening for UDP packets on port " << PORT << "..." << std::endl;
+     
+     
+    while(1)
+    {
+     while ((n = recv(sockfd, buffer, BUFFER_SIZE, 0)) > 0) 
+     {
+        for (ssize_t i = 0; i < n; i += 2 * sizeof(double)) 
+        {
+            double I, Q;
+            std::memcpy(&I, buffer + i, sizeof(double));       
+            std::memcpy(&Q, buffer + i + sizeof(double), sizeof(double));
+            iqBuff.emplace_back(std::complex<double>(I, Q));
+        
+        }
+     }
+    //only write if there are samples
+    printf("Received %ld bytes\n", n);
+    if(iqBuff.size() > 0)
+    {
+        IQfile(iqBuff, hdfName);
+    }
+  
+    }
+
 }
 
 int main(int argc, char **argv)

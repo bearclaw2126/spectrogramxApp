@@ -13,6 +13,7 @@ int main(int argc, char *argv[])
     stftTest sig;
     std::vector<double> window;
     std::vector<std::complex<double>> iqBuff;
+   
     double fs;
     double fDelta;
     double tDelta;
@@ -31,16 +32,16 @@ int main(int argc, char *argv[])
     }
 
     std::streampos size = file.tellg();
-   std::cout << "Size of file: " << size << "\n";
+    std::cout << "Size of file: " << size << "\n";
    if (size == -1)
    {
          std::cout << "Error getting file size" << std::endl;
    }
     int totalSample = size / (2 * sizeof(int16_t));
-    unsigned int chunkSize = 200000 * (2 * sizeof(int16_t));
-    const int seeker = 10;
+    unsigned int chunkSize = 4096 * (2 * sizeof(int16_t));
+    const int seeker = 100;
     int count = 0;
-    file.seekg(64, std::ios::beg); 
+    file.seekg(8, std::ios::beg); 
 
     for (int i = 0; i < seeker; ++i)
     {
@@ -54,18 +55,19 @@ int main(int argc, char *argv[])
         }
         
 
-        //file.seekg(chunkSize, std::ios::cur);
+        file.seekg(chunkSize, std::ios::cur);
         std::cout << "Samples : " << iqBuff.size() << "\n";
     
     
         sfft(window,sig, iqBuff);
-        cirValue(sig);
+       
+    
         count++;
 
 
         // saving to hdf5 file
-        hdf5file(sig,hdfName);
-        hdfSTFTtest(sig, hdfName);
+       IQfile(iqBuff, hdfName);
+      
         //IQfile(sig, hdfName);
         fs = 40e6;
         fDelta = floor(40e6 / sig.stftAbs[0].size());
@@ -74,6 +76,7 @@ int main(int argc, char *argv[])
         
         sig.stftCIR.clear();
         sig.output.clear();
+        iqBuff.clear();
       
     
     }

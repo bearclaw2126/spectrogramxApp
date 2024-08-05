@@ -257,44 +257,9 @@ void signalHandler(double signal)
     }
 }
 
-void hdf5file(stftTest &signal, std::string fileName)
+void hdf5file(stft &iq, std::string fileName)
 {
-    std::filesystem::path backOneDir = std::filesystem::current_path().parent_path();
-    std::string hdfName = fileName;
-    bool test = false;
-    std::string folder = test == true ? "/testOutput" : "database/";
-    std::string directory = (backOneDir / folder).string();
-    std::string fullPath = directory + hdfName + ".h5";
-    hsize_t dims[2] = {signal.stftCIR.size(), signal.stftCIR[0].size()};
-    std::cout << fullPath << "\n";
-    H5::H5File file;
-    if (!std::filesystem::exists(fullPath))
-    {
-        file = H5::H5File(fullPath, H5F_ACC_TRUNC);
-        H5::Group group = file.createGroup("/CIR");
-    }
-    else
-    {
-        file = H5::H5File(fullPath, H5F_ACC_RDWR);
-    }
-    // Open the group and count the number of datasets
-    H5::Group cir = file.openGroup("/CIR");
-    int numDatasets = cir.getNumObjs();
-
-    if (numDatasets <= 0)
-    {
-        std::string dataSetName = "CIR0";
-        H5::DataSpace dataspace(2, dims);
-        H5::DataSet dataset = cir.createDataSet(dataSetName, H5::PredType::NATIVE_DOUBLE, dataspace);
-        dataset.write(signal.stftCIR.data(), H5::PredType::NATIVE_DOUBLE);
-    }
-    else if (numDatasets >= 1 && numDatasets <= 10)
-    {
-        std::string dataSetName = "CIR" + std::to_string(numDatasets);
-        H5::DataSpace dataspace(2, dims);
-        H5::DataSet dataset = cir.createDataSet(dataSetName, H5::PredType::NATIVE_DOUBLE, dataspace);
-        dataset.write(signal.stftCIR.data(), H5::PredType::NATIVE_DOUBLE);
-    }
+    
 }
 
 void hdfSTFTtest(const stftTest signal, const std::string fileName)
@@ -317,26 +282,26 @@ void hdfSTFTtest(const stftTest signal, const std::string fileName)
         file = H5::H5File(fullPath, H5F_ACC_RDWR);
     }
     // Open the group and count the number of datasets
-    H5::Group cir = file.openGroup("/fftOutput");
-    int numDatasets = cir.getNumObjs();
+    H5::Group data = file.openGroup("/fftOutput");
+    int numDatasets = data.getNumObjs();
 
     if (numDatasets <= 0)
     {
         std::string dataSetName = "STFT0";
         H5::DataSpace dataspace(2, dims);
-        H5::DataSet dataset = cir.createDataSet(dataSetName, H5::PredType::NATIVE_DOUBLE, dataspace);
+        H5::DataSet dataset = data.createDataSet(dataSetName, H5::PredType::NATIVE_DOUBLE, dataspace);
         dataset.write(signal.stftAbs.data(), H5::PredType::NATIVE_DOUBLE);
     }
     else if (numDatasets >= 1 && numDatasets <= 10)
     {
         std::string dataSetName = "STFT" + std::to_string(numDatasets);
         H5::DataSpace dataspace(2, dims);
-        H5::DataSet dataset = cir.createDataSet(dataSetName, H5::PredType::NATIVE_DOUBLE, dataspace);
+        H5::DataSet dataset = data.createDataSet(dataSetName, H5::PredType::NATIVE_DOUBLE, dataspace);
         dataset.write(signal.stftAbs.data(), H5::PredType::NATIVE_DOUBLE);
     }
 }
 
-void IQfile(stftTest &sig, std::string fileName)
+void IQfile(std::vector<std::complex<double>> &iq, std::string fileName)
 {
     std::filesystem::path backOneDir = std::filesystem::current_path().parent_path();
     std::string hdfName = fileName;
@@ -344,41 +309,55 @@ void IQfile(stftTest &sig, std::string fileName)
     std::string folder = test == true ? "testOutput/" : "database/";
     std::string directory = (backOneDir / folder).string();
     std::string fullPath = directory + hdfName + ".h5";
-    hsize_t dims[2] = {sig.output.size(), 2};           // Change the second dimension to 2
-    std::vector<double> storage(sig.output.size() * 2); // Adjust the size of the storage vector
-    for (size_t i = 0; i < sig.output.size(); ++i)
+    hsize_t dims[1] = {iq.size()};
+    hsize_t dimLabel[1] = {100};              // Change the second dimension to 2
+    std::vector<double> storage(iq.size() * 2); // Adjust the size of the storage vector
+    for (size_t i = 0; i < iq.size(); ++i)
     {
-        storage[i * 2] = std::real(sig.ifft[i]);     // Store the real part at even indices
-        storage[i * 2 + 1] = std::imag(sig.ifft[i]); // Store the imaginary part at odd indices
+        storage[i * 2] = std::real(iq[i]);     // Store the real part at even indices
+        storage[i * 2 + 1] = std::imag(iq[i]); // Store the imaginary part at odd indices
     }
 
     H5::H5File file;
-    if (!std::filesystem::exists(fullPath))
+    try 
+    {
+       
+  
+    if(!std::filesystem::exists(fullPath))
     {
         file = H5::H5File(fullPath, H5F_ACC_TRUNC);
-        H5::Group group = file.createGroup("/fftOutput");
+        H5::Group group = file.createGroup("/data");
     }
     else
     {
         file = H5::H5File(fullPath, H5F_ACC_RDWR);
     }
-    // Open the group and count the number of datasets
-    H5::Group cir = file.openGroup("/fftOutput");
-    int numDatasets = cir.getNumObjs();
-
-    if (numDatasets <= 0)
+    H5::Group group = file.openGroup("/data");
+     int numDatasets = group.getNumObjs();
+       if(numDatasets <= 0)
+       {
+           
+            H5::DataSpace dataspace(1, dims);
+            H5::DataSet dataset = group.createDataSet("IQ0", H5::PredType::NATIVE_DOUBLE, dataspace);
+            dataset.write(storage.data(), H5::PredType::NATIVE_DOUBLE);
+             
+       }
+       else
+       {
+           
+            H5::DataSpace dataspace(1, dims);
+            H5::DataSet dataset = group.createDataSet("IQ" + std::to_string(numDatasets), H5::PredType::NATIVE_DOUBLE, dataspace);
+            dataset.write(storage.data(), H5::PredType::NATIVE_DOUBLE);
+            H5::Group dataGroup = file.openGroup("/data");
+            dataset = dataGroup.openDataSet("IQ" + std::to_string(numDatasets));
+            H5::Attribute attribute = dataset.createAttribute("Label", H5::PredType::NATIVE_INT, H5::DataSpace(H5S_SCALAR));
+            int labelValue = 0;
+            attribute.write(H5::PredType::NATIVE_INT, &labelValue);
+       }
+        
+    }  catch (H5::Exception &error)
     {
-        std::string dataSetName = "STFT0";
-        H5::DataSpace dataspace(2, dims);
-        H5::DataSet dataset = cir.createDataSet(dataSetName, H5::PredType::NATIVE_DOUBLE, dataspace);
-        dataset.write(storage.data(), H5::PredType::NATIVE_DOUBLE);
-    }
-    else if (numDatasets >= 1 && numDatasets <= 10)
-    {
-        std::string dataSetName = "STFT" + std::to_string(numDatasets);
-        H5::DataSpace dataspace(2, dims);
-        H5::DataSet dataset = cir.createDataSet(dataSetName, H5::PredType::NATIVE_DOUBLE, dataspace);
-        dataset.write(storage.data(), H5::PredType::NATIVE_DOUBLE);
+        error.printErrorStack();
     }
 }
 
@@ -483,7 +462,7 @@ void sfft(std::vector<double> &windows, stftTest &sig, std::vector<std::complex<
             int outputIndex = chunkPosition + j;
             if (outputIndex >= 0 && outputIndex < signalLength)
             {
-                sig.output[outputIndex] = std::complex<double>(out[j][0], out[j][1]); // Assuming real part is what we need
+                sig.output[outputIndex] = std::complex<double>(out[j][0], out[j][1]);
                 sig.ifft[outputIndex] = std::complex<double>(origData[j][0] / windows[j], origData[j][1] / windows[j]);
                 //  std::cout << "fft_result[" << j << "] = { " << sig.output[outputIndex] << " }\n";
             }
@@ -585,68 +564,66 @@ test readHdf(std::string fileName)
     try
     {
         test wave;
-    std::filesystem::path backOneDir = std::filesystem::current_path().parent_path();
-    std::string hdfName = fileName;
-    bool test = true;
-    std::string folder = test == true ? "testOutput/" : "testQAM/";
-    std::string directory = (backOneDir / folder).string();
-    std::string fullPath = directory + hdfName + ".h5";
-    std::cout << "Full path to HDF5 file: " << fullPath << std::endl;
+        std::filesystem::path backOneDir = std::filesystem::current_path().parent_path();
+        std::string hdfName = fileName;
+        bool test = true;
+        std::string folder = test == true ? "testOutput/" : "testQAM/";
+        std::string directory = (backOneDir / folder).string();
+        std::string fullPath = directory + hdfName + ".h5";
+        std::cout << "Full path to HDF5 file: " << fullPath << std::endl;
 
-    H5::H5File file(fullPath, H5F_ACC_RDONLY);
-    H5::Group group = file.openGroup("/fftOutput");
-    int numDatasets = group.getNumObjs();
-    std::cout << "Number of datasets: " << numDatasets << std::endl;
+        H5::H5File file(fullPath, H5F_ACC_RDONLY);
+        H5::Group group = file.openGroup("/fftOutput");
+        int numDatasets = group.getNumObjs();
+        std::cout << "Number of datasets: " << numDatasets << std::endl;
 
-    if (numDatasets <= 0)
-    {
-        std::cout << "No datasets found in the HDF file." << std::endl;
-        return wave;
-    }
-
-    std::string datasetName = "STFT0";
-    if (!H5Lexists(group.getId(), datasetName.c_str(), H5P_DEFAULT))
-    {
-        std::cout << "Dataset " << datasetName << " does not exist." << std::endl;
-        return wave;
-    }
-
-    H5::DataSet dataset = group.openDataSet(datasetName);
-    H5::DataSpace dataspace = dataset.getSpace();
-    int rank = dataspace.getSimpleExtentNdims();
-    std::cout << "Rank of dataspace: " << rank << std::endl;
-std::vector<std::vector<double>> buffer;
-    hsize_t dims[2];
-    dataspace.getSimpleExtentDims(dims, NULL);
-    int windowSize = dims[0];
-    int windowCount = dims[1];
-    std::cout << "Window size: " << windowSize << ", Window count: " << windowCount << std::endl;
-
-    std::vector<double> data(dims[0] * dims[1]);
-    H5::DataSpace memspace(1, dims);
-    dataset.read(data.data(), H5::PredType::NATIVE_DOUBLE);
-    buffer.push_back(data);
-
-    for(int  i = 0; i < windowCount; i++)
-    {
-        std::vector<double> temp;
-        for(int j = 0; j < windowSize; j++)
+        if (numDatasets <= 0)
         {
-            temp.push_back(data[i * windowSize + j]);
+            std::cout << "No datasets found in the HDF file." << std::endl;
+            return wave;
         }
-        wave.hdfAbs.push_back(temp);
-    }
 
-    
+        std::string datasetName = "STFT0";
+        if (!H5Lexists(group.getId(), datasetName.c_str(), H5P_DEFAULT))
+        {
+            std::cout << "Dataset " << datasetName << " does not exist." << std::endl;
+            return wave;
+        }
+
+        H5::DataSet dataset = group.openDataSet(datasetName);
+        H5::DataSpace dataspace = dataset.getSpace();
+        int rank = dataspace.getSimpleExtentNdims();
+        std::cout << "Rank of dataspace: " << rank << std::endl;
+        std::vector<std::vector<double>> buffer;
+        hsize_t dims[2];
+        dataspace.getSimpleExtentDims(dims, NULL);
+        int windowSize = dims[0];
+        int windowCount = dims[1];
+        std::cout << "Window size: " << windowSize << ", Window count: " << windowCount << std::endl;
+
+        std::vector<double> data(dims[0] * dims[1]);
+        H5::DataSpace memspace(1, dims);
+        dataset.read(data.data(), H5::PredType::NATIVE_DOUBLE);
+        buffer.push_back(data);
+
+        for (int i = 0; i < windowCount; i++)
+        {
+            std::vector<double> temp;
+            for (int j = 0; j < windowSize; j++)
+            {
+                temp.push_back(data[i * windowSize + j]);
+            }
+            wave.hdfAbs.push_back(temp);
+        }
+
         return wave;
-    } catch (H5::Exception &error)
+    }
+    catch (H5::Exception &error)
     {
         error.printErrorStack();
     }
     catch (std::exception &e)
-{
-    std::cerr << "Standard exception: " << e.what() << std::endl;
-}
-
-
+    {
+        std::cerr << "Standard exception: " << e.what() << std::endl;
+    }
 }
